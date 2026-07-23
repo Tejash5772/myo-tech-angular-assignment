@@ -1,4 +1,7 @@
 name: MYO Tech Angular Assignment Deployment
+run: |
+          npx ng build --configuration production --base-href /myo-tech-angular-assignment/
+          cp ./dist/myo-tech-angular-assignment/browser/index.html ./dist/myo-tech-angular-assignment/browser/404.html
 
 on:
   push:
