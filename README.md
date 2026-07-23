@@ -1,59 +1,47 @@
-# MyoTechAngularAssignment
+# Advanced Angular Architecture Assignment
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.0.7.
+## 📌 Project Overview
+This project is an advanced Angular application demonstrating highly scalable architectural patterns. It features a mock backend via `json-server`, dynamic component rendering, heavily nested reactive forms, custom RxJS operators, and optimistic UI updates. 
 
-## Development server
+The architecture is designed with modularity, reusability, and strict type safety in mind, mimicking a production-ready enterprise environment.
 
-To start a local development server, run:
+## 🚀 Key Features Implemented
 
+*   **Universal Data Grid:** A highly reusable, standalone data grid component (`<app-data-grid>`) supporting dynamic columns, pagination, column sorting, and custom cell rendering via `ng-template`.
+*   **Complex Nested Forms (Order Entry):** A deeply nested Reactive Form featuring a `FormArray` for line items, real-time dynamic total calculations, and custom Async Validators for stock checking.
+*   **Dynamic Schema-Driven Forms:** Forms generated dynamically from JSON configurations, including dependent dropdowns (e.g., Category -> SubCategory).
+*   **Optimistic UI Deletion:** Soft-delete functionality that immediately updates the UI while triggering a 5-second RxJS countdown timer, allowing the user to "Undo" before the API `DELETE` request is finalized.
+*   **Auto-Draft & State Recovery:** A service utilizing `localStorage` to automatically save form state (`$dirty` forms) and recover it if the user accidentally navigates away or refreshes the page.
+*   **Route Guards & Resolvers:**
+    *   `DirtyCheckGuard`: Prevents users from navigating away from unsaved forms.
+    *   `DataResolver`: Prefetches paginated data before route activation to prevent UI layout shift.
+*   **Centralized Error Handling & Feedback:** A global HTTP Interceptor that catches API errors and routes them to a centralized Toast Notification Service.
+*   **Angular Proxy Configuration:** Seamless local development handling CORS and API routing via `proxy.conf.json`.
+
+## 🛠 Tech Stack
+*   **Framework:** Angular (Standalone Components API)
+*   **State & Reactivity:** RxJS 
+*   **Styling:** SCSS
+*   **Mock Backend:** `json-server` (Running on port 3000)
+
+## ⚙️ Setup and Installation
+
+### 1. Prerequisites
+Ensure you have Node.js and the Angular CLI installed on your local environment.
+
+### 2. Install Dependencies
+Clone the repository and install the required packages:
 ```bash
-ng serve
-```
+npm install
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
+### 3. Start the Mock Database (`json-server`)
+The application relies on `json-server` to mock API responses. The database schema is located in the root `db.json` file. Run the server on port 3000:
 ```bash
-ng generate component component-name
-```
+npm run backend
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+### 4. Run the Angular Application
+The Angular workspace is configured with a `proxy.conf.json` file to route all `/api/*` requests to the `json-server`. 
 
+Open a **new, separate terminal window** (keep the mock database running in the first one) and start the development server by running:
 ```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+npm start

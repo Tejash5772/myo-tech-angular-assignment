@@ -1,0 +1,129 @@
+{
+  "dynamic-schema": [
+    {
+      "key": "productName",
+      "control": "textbox",
+      "label": "Product Name",
+      "required": true
+    },
+    {
+      "key": "category",
+      "control": "dropdown",
+      "label": "Category",
+      "api": "/api/categories",
+      "required": true
+    },
+    {
+      "key": "subCategory",
+      "control": "dropdown",
+      "label": "Sub Category",
+      "dependson": "category",
+      "required": false
+    },
+    {
+      "key": "price",
+      "control": "number",
+      "label": "Price (INR)",
+      "required": true,
+      "min": 1
+    }
+  ],
+  "products": [
+    {
+      "productName": "MacBook Pro 16",
+      "category": "Laptops",
+      "subCategory": "Apple",
+      "price": 250000,
+      "status": "Active",
+      "id": "1"
+    },
+    {
+      "id": "2",
+      "productName": "iPhone 15 Pro",
+      "category": "Mobiles",
+      "subCategory": "Apple",
+      "price": 134900,
+      "status": "Active"
+    },
+    {
+      "id": "3",
+      "productName": "ThinkPad X1 Carbon",
+      "category": "Laptops",
+      "subCategory": "Lenovo",
+      "price": 185000,
+      "status": "Pending"
+    }
+  ],
+  "categories": [
+    {
+      "id": "1",
+      "name": "Laptops"
+    },
+    {
+      "id": "2",
+      "name": "Mobiles"
+    },
+    {
+      "id": "3",
+      "name": "Tablets"
+    }
+  ],
+  "orders": [
+    {
+      "customerName": "54",
+      "items": [
+        {
+          "productId": "1",
+          "quantity": 43,
+          "price": 8000,
+          "taxes": [],
+          "discounts": []
+        }
+      ],
+      "totalAmount": 344000,
+      "id": 1
+    },
+    {
+      "customerName": "223",
+      "items": [
+        {
+          "productId": "12",
+          "quantity": 12,
+          "price": 1890,
+          "taxes": [],
+          "discounts": []
+        }
+      ],
+      "totalAmount": 22680,
+      "id": 2
+    },
+    {
+      "customerName": "Tejash",
+      "items": [
+        {
+          "productId": "1",
+          "quantity": 45,
+          "price": 89,
+          "taxes": [],
+          "discounts": []
+        }
+      ],
+      "totalAmount": 4005,
+      "id": 3
+    },
+    {
+      "customerName": "34",
+      "items": [
+        {
+          "productId": "1221",
+          "quantity": 678,
+          "price": 789,
+          "taxes": [],
+          "discounts": []
+        }
+      ],
+      "totalAmount": 534942,
+      "id": 4
+    }
+  ]
+}

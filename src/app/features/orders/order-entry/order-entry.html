@@ -1,0 +1,45 @@
+<div class="order-entry-container">
+  <h3>Create Order</h3>
+  
+  <form [formGroup]="orderForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="customerName">Customer Name</label>
+      <input id="customerName" type="text" formControlName="customerName" class="form-control" />
+    </div>
+
+    <div formArrayName="items" class="items-container">
+      <h4>Order Items</h4>
+      
+      <div *ngFor="let item of items.controls; let i=index" [formGroupName]="i" class="item-row">
+        <div class="form-group">
+          <label>Product ID</label>
+          <!-- Blur triggers the async stock validator[cite: 1] -->
+          <input type="text" formControlName="productId" class="form-control" (blur)="item.get('productId')?.updateValueAndValidity()" />
+          <small class="error-text" *ngIf="item.get('productId')?.hasError('outOfStock')">
+            Item is currently out of stock!
+          </small>
+        </div>
+
+        <div class="form-group">
+          <label>Quantity</label>
+          <input type="number" formControlName="quantity" class="form-control" min="1" />
+        </div>
+
+        <div class="form-group">
+          <label>Price</label>
+          <input type="number" formControlName="price" class="form-control" min="0" />
+        </div>
+
+        <button type="button" class="btn-remove" (click)="removeItem(i)">Remove</button>
+      </div>
+    </div>
+
+    <button type="button" class="btn-add" (click)="addItem()">+ Add Line Item</button>
+
+    <div class="order-summary">
+      <h4>Total Amount: {{ orderTotal | currency:'INR' }}</h4>
+    </div>
+
+    <button type="submit" class="btn-submit" [disabled]="orderForm.invalid">Submit Order</button>
+  </form>
+</div>

@@ -1,0 +1,8 @@
+<div class="drop-zone">
+  <p>Drag & Drop your file here, or <input type="file" (change)="onFileSelect($event)"></p>
+  
+  <div *ngIf="previewUrl">
+    <h4>Live Preview:</h4>
+    <img [src]="previewUrl" alt="Preview" style="max-width: 200px; max-height: 200px;">
+  </div>
+</div>

@@ -1,0 +1,28 @@
+<div class="product-list-container">
+    <h2>Products Library</h2>
+
+    <!-- Reusable Universal Data Grid Component[cite: 1] -->
+    <app-data-grid [data]="products" [columns]="columns" [totalRecords]="totalRecords" [cellTemplates]="cellTemplates"
+        (stateChange)="onGridStateChange($event)">
+    </app-data-grid>
+
+    <!-- Custom Cell Templates mapped via ViewChild[cite: 1] -->
+
+    <!-- Price Template using CustomCurrencyPipe (Step 12)[cite: 1] -->
+    <ng-template #priceTemplate let-row>
+        <strong>{{ row.price | customCurrency:'prefix' }}</strong>
+    </ng-template>
+
+    <!-- Status Template using StatusBadgePipe (Step 12)[cite: 1] -->
+    <ng-template #statusTemplate let-row>
+        <span [class]="row.status | statusBadge">
+            {{ row.status || 'Unknown' }}
+        </span>
+    </ng-template>
+
+    <!-- Actions Template -->
+    <ng-template #actionsTemplate let-row>
+        <button class="btn btn-sm btn-primary" (click)="editProduct(row)">Edit</button>
+        <button class="btn btn-sm btn-danger" (click)="deleteProduct(row)">Delete</button>
+    </ng-template>
+</div>

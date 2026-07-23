@@ -1,0 +1,45 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th *ngFor="let col of columns" (click)="onSort(col.key)" class="sortable-header">
+        {{ col.label }} 
+        <span *ngIf="sort === col.key + '_asc'">▲</span>
+        <span *ngIf="sort === col.key + '_desc'">▼</span>
+        <span *ngIf="!sort.includes(col.key)">⇅</span>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- Show Empty State if No Data -->
+    <tr *ngIf="data.length === 0">
+      <td [attr.colspan]="columns.length" class="text-center py-4">No records found.</td>
+    </tr>
+
+    <tr *ngFor="let row of data">
+      <td *ngFor="let col of columns">
+        <ng-container *ngIf="cellTemplates[col.key]; else defaultCell">
+          <ng-container *ngTemplateOutlet="cellTemplates[col.key]; context: { $implicit: row }"></ng-container>
+        </ng-container>
+        <ng-template #defaultCell>{{ row[col.key] }}</ng-template>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="pagination-controls">
+  <button 
+    class="btn btn-secondary btn-sm" 
+    (click)="onPageChange(page - 1)" 
+    [disabled]="page <= 1">
+    Prev
+  </button>
+  
+  <span class="page-info">Page {{ page }} of {{ totalPages }}</span>
+  
+  <button 
+    class="btn btn-secondary btn-sm" 
+    (click)="onPageChange(page + 1)" 
+    [disabled]="page >= totalPages">
+    Next
+  </button>
+</div>
