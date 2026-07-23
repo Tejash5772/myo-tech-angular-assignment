@@ -1,4 +1,4 @@
-name: MYO-TECH Angular Assignment Deployment
+name: MYO Tech Angular Assignment Deployment
 
 on:
   push:
@@ -19,13 +19,12 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '23' 
+          node-version: '24' # Updated from 20 to 24 to fix deprecation warning
           cache: 'npm'
 
       - name: Install Dependencies
         run: npm ci
 
-      # Updated base-href to match your exact GitHub repository name
       - name: Build Angular Project
         run: npx ng build --configuration production --base-href /myo-tech-angular-assignment/
 
@@ -33,5 +32,4 @@ jobs:
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          # Path configured for your specific project name and Angular 17+
           publish_dir: ./dist/myo-tech-angular-assignment/browser
