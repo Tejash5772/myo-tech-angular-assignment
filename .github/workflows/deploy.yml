@@ -1,7 +1,4 @@
 name: MYO Tech Angular Assignment Deployment
-run: |
-          npx ng build --configuration production --base-href /myo-tech-angular-assignment/
-          cp ./dist/myo-tech-angular-assignment/browser/index.html ./dist/myo-tech-angular-assignment/browser/404.html
 
 on:
   push:
@@ -29,7 +26,9 @@ jobs:
         run: npm ci
 
       - name: Build Angular Project
-        run: npx ng build --configuration production --base-href /myo-tech-angular-assignment/
+        run: |
+          npx ng build --configuration production --base-href /myo-tech-angular-assignment/
+          cp ./dist/myo-tech-angular-assignment/browser/index.html ./dist/myo-tech-angular-assignment/browser/404.html
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
