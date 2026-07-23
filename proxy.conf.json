@@ -1,6 +1,6 @@
 {
   "/api": {
-    "target": "https://tejash5772.github.io",
+    "target": "http://localhost:3000",
     "secure": false,
     "pathRewrite": {
       "^/api": ""
