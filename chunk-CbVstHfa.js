@@ -1,1 +1,0 @@
-import {H as Ho,B as on}from'./main-N7YFCCNM.js';var n=class r extends Ho{getResourceUrl(){return "/api/orders"}static \u0275fac=function(i){return new(i||r)};static \u0275prov=on({token:r,factory:r.\u0275fac})};export{n};
