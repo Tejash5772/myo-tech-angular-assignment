@@ -3,11 +3,12 @@ import { Order } from '../order';
 import { CommonModule } from '@angular/common';
 import { CustomCurrencyPipe } from '../../../shared/pipes/custom-currency-pipe';
 import { DataGrid } from '../../../shared/components/data-grid/data-grid';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-order-list',
   standalone: true,
-  imports: [CommonModule, DataGrid, CustomCurrencyPipe],
+  imports: [CommonModule, DataGrid, CustomCurrencyPipe, RouterLink],
   templateUrl: './order-list.html',
   styleUrl: './order-list.scss',
 })
