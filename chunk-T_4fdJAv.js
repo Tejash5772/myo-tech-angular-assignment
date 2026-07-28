@@ -1,0 +1,1 @@
+import {p as es,r as dn}from'./main-CANKDUWX.js';var n=class r extends es{endpoint="/orders";static \u0275fac=function(i){return new(i||r)};static \u0275prov=dn({token:r,factory:r.\u0275fac})};export{n};

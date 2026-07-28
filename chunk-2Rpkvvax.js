@@ -1,1 +1,0 @@
-import {H as Ho,x as on}from'./main-RA2TPTMR.js';var n=class r extends Ho{endpoint="/orders";static \u0275fac=function(i){return new(i||r)};static \u0275prov=on({token:r,factory:r.\u0275fac})};export{n};
