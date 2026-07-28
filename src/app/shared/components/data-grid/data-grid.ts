@@ -14,34 +14,27 @@ export class DataGrid implements OnInit {
   @Input() columns: { key: string, label: string }[] = [];
   @Input() totalRecords = 0;
   
-  @Output() stateChange = new EventEmitter<{ page: number, limit: number, sort: string }>();
+  @Output() stateChange = new EventEmitter<{ page: number, limit: number }>();
 
   @Input() cellTemplates: Record<string, TemplateRef<any>> = {};
 
   page = 1;
-  limit = 1;
-  sort = '';
+  limit = 10;
 
   constructor(private route: ActivatedRoute, private router: Router) {}
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
       this.page = params['page'] ? +params['page'] : 1;
-      this.limit = params['limit'] ? +params['limit'] : 1;
-      this.sort = params['sort_order'] || '';
+      this.limit = params['limit'] ? +params['limit'] : 10;
       
-      this.stateChange.emit({ page: this.page, limit: this.limit, sort: this.sort });
+      this.stateChange.emit({ page: this.page, limit: this.limit });
     });
   }
 
   // Calculate total pages based on total records and page limit
   get totalPages(): number {
     return Math.ceil(this.totalRecords / this.limit) || 1;
-  }
-
-  onSort(columnKey: string) {
-    this.sort = this.sort === `${columnKey}_asc` ? `${columnKey}_desc` : `${columnKey}_asc`;
-    this.updateUrl();
   }
 
   onPageChange(newPage: number) {
@@ -55,7 +48,7 @@ export class DataGrid implements OnInit {
   private updateUrl() {
     this.router.navigate([], {
       relativeTo: this.route,
-      queryParams: { page: this.page, limit: this.limit, sort_order: this.sort },
+      queryParams: { page: this.page, limit: this.limit },
       queryParamsHandling: 'merge'
     });
   }

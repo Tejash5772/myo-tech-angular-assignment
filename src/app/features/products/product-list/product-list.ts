@@ -58,15 +58,13 @@ export class ProductList implements OnInit {
   }
 
   /**
-   * Handles pagination and sorting state emitted by the DataGridComponent.
+   * Handles pagination state emitted by the DataGridComponent.
    * Fetches new data from the API based on the updated state.
    */
-  onGridStateChange(state: { page: number; limit: number; sort: string }) {
+  onGridStateChange(state: { page: number; limit: number }) {
     const params = {
       _page: state.page,
       _limit: state.limit,
-      _sort: state.sort ? state.sort.split('_')[0] : '',
-      _order: state.sort ? state.sort.split('_')[1] : ''
     };
 
     this.productService.getAll(params).subscribe(data => {

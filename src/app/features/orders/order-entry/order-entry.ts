@@ -9,7 +9,6 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-order-entry',
   imports: [CommonModule, ReactiveFormsModule],
-  providers: [Toast],
   templateUrl: './order-entry.html',
   styleUrl: './order-entry.scss',
   standalone: true
@@ -84,7 +83,6 @@ export class OrderEntry {
       };
       this.orderService.create(orderPayload).subscribe(res => {
         this.toastService.showSuccess('Order successfully created!');
-        console.log('Order submitted successfully!', res);
         this.orderForm.reset();
         this.items.clear();
         this.router.navigate(['/orders']);

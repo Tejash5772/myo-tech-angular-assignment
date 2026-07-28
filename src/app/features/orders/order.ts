@@ -18,7 +18,5 @@ export interface Order {
 
 @Service()
 export class Order extends BaseApi<Order> {
-  protected getResourceUrl(): string {
-    return '/api/orders'; 
-  }
+  protected endpoint = '/orders'; 
 }

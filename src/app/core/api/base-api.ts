@@ -1,12 +1,18 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { inject, Service } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-@Service()
+@Injectable()
 export abstract class BaseApi<T> {
     protected http = inject(HttpClient);
 
-    protected abstract getResourceUrl(): string;
+    protected baseUrl = 'https://myo-tech-backend.onrender.com'; 
+    
+    protected abstract endpoint: string; 
+
+    protected getResourceUrl(): string {
+        return `${this.baseUrl}${this.endpoint}`;
+    }
 
     getAll(params?: any): Observable<T[]> {
         let httpParams = new HttpParams();

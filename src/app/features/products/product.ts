@@ -13,8 +13,5 @@ export interface Product {
 
 @Service()
 export class Product extends BaseApi<Product> {
-  // Extending the generic service and defining the endpoint
-  protected getResourceUrl(): string {
-    return '/api/products'; 
-  }
+  protected endpoint = '/products';
 }

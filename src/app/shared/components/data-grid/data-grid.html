@@ -1,11 +1,8 @@
 <table class="table">
   <thead>
     <tr>
-      <th *ngFor="let col of columns" (click)="onSort(col.key)" class="sortable-header">
+      <th *ngFor="let col of columns" class="sortable-header">
         {{ col.label }} 
-        <span *ngIf="sort === col.key + '_asc'">▲</span>
-        <span *ngIf="sort === col.key + '_desc'">▼</span>
-        <span *ngIf="!sort.includes(col.key)">⇅</span>
       </th>
     </tr>
   </thead>

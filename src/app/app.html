@@ -1,10 +1,10 @@
-<!-- Global Top Progress Bar (Step 13) -->
+
 <div *ngIf="progressBarService.isLoading()" class="global-progress-bar">
   <div class="progress-bar-fill"></div>
 </div>
 
 <header class="app-header">
-  <h2>Assignment Architecture</h2>
+  <h2>Assignment</h2>
   <button class="theme-toggle-btn" (click)="toggleTheme()">
     Toggle Dark/Light Mode
   </button>
@@ -13,4 +13,5 @@
 <main class="app-main-content">
   <!-- Routes render here -->
   <router-outlet></router-outlet>
+  <app-toast-ui/>
 </main>

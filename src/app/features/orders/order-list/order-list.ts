@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, inject, OnInit, TemplateRef, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { Order } from '../order';
 import { CommonModule } from '@angular/common';
 import { CustomCurrencyPipe } from '../../../shared/pipes/custom-currency-pipe';
@@ -13,16 +13,15 @@ import { DataGrid } from '../../../shared/components/data-grid/data-grid';
 })
 export class OrderList implements OnInit {
   private orderService = inject(Order);
+  private cdr = inject(ChangeDetectorRef);
 
-  orders: Order[] = [];
+  orders: any[] = []; 
   totalRecords = 0;
 
-  // Different column definitions for the same Universal Grid
   columns = [
     { key: 'id', label: 'Order ID' },
     { key: 'customerName', label: 'Customer Name' },
-    { key: 'totalAmount', label: 'Total Amount' },
-    { key: 'actions', label: 'Actions' }
+    { key: 'totalAmount', label: 'Total Amount' }
   ];
 
   cellTemplates: Record<string, TemplateRef<any>> = {};
@@ -30,32 +29,59 @@ export class OrderList implements OnInit {
   @ViewChild('totalTemplate', { static: true }) totalTemplate!: TemplateRef<any>;
 
   ngOnInit() {
-    // Map custom templates for the grid
     this.cellTemplates = {
       'totalAmount': this.totalTemplate,
     };
+  }
 
-    // 1. Fetch the true total count for pagination math
-    this.orderService.getAll().subscribe(allOrders => {
-      this.totalRecords = allOrders.length;
+  onGridStateChange(state: { page: number; limit: number }) {
+    const params = {
+      _page: state.page,
+      _limit: state.limit
+    };
+
+    // 1. Fetch Paginated Data
+    this.orderService.getAll(params).subscribe((response: any) => {
+
+      let rawOrders: any[] = [];
+      if (Array.isArray(response)) {
+        rawOrders = response;
+      } else if (response && Array.isArray(response.data)) {
+        rawOrders = response.data;
+      } else if (response && Array.isArray(response.items)) {
+        rawOrders = response.items;
+      }
+
+      // Map properties for the grid
+      this.orders = rawOrders.map((order: any) => ({
+        ...order,
+        customerName: order.customerName || 'N/A',
+        totalAmount: this.calculateTotal(order)
+      }));
+      
+      // Force Angular to re-render the UI with the new data
+      this.cdr.detectChanges(); 
     });
 
-    // 2. EXPLICITLY fetch the first page of data on load
-    this.orderService.getAll({ _page: 1, _limit: 10 }).subscribe(initialData => {
-      this.orders = initialData;
+    // 2. Fetch Total Count for Pagination
+    this.orderService.getAll().subscribe((allData: any) => {
+      if (Array.isArray(allData)) {
+        this.totalRecords = allData.length;
+      } else if (allData && allData.items) {
+        this.totalRecords = allData.items;
+      } else if (allData && allData.data) {
+         this.totalRecords = allData.data.length;
+      }
+      this.cdr.detectChanges();
     });
   }
 
-  onGridStateChange(state: { page: number; limit: number; sort: string }) {
-    const params = {
-      _page: state.page,
-      _limit: state.limit,
-      _sort: state.sort ? state.sort.split('_')[0] : '',
-      _order: state.sort ? state.sort.split('_')[1] : ''
-    };
-
-    this.orderService.getAll(params).subscribe(data => {
-      this.orders = data;
-    });
+  private calculateTotal(order: any): number {
+    if (order.grandTotal) return order.grandTotal;
+    if (!order.items) return 0;
+    
+    return order.items.reduce((sum: number, item: any) => {
+      return sum + ((item.price || 0) * (item.quantity || 0));
+    }, 0);
   }
 }
