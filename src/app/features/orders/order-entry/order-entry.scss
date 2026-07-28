@@ -177,3 +177,22 @@
     }
   }
 }
+
+.btn-back {
+      text-decoration: none;
+      color: var(--text-color);
+      font-weight: 600;
+      font-size: 0.95rem;
+      opacity: 0.7;
+      transition: all 0.2s ease;
+      padding: 6px 12px;
+      border-radius: 6px;
+      background-color: rgba(128, 128, 128, 0.05);
+
+      &:hover {
+        opacity: 1;
+        color: #a855f7; /* Matches the purple from your gradient */
+        background-color: rgba(128, 128, 128, 0.1);
+        transform: translateX(-2px); /* Slight slide left on hover */
+      }
+    }

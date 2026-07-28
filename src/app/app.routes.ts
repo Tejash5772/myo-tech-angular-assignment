@@ -5,7 +5,7 @@ import { dirtyCheckGuard } from './core/guards/dirty-check-guard';
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'orders/new',
+    redirectTo: 'orders',
     pathMatch: 'full'
   },
   {
@@ -54,6 +54,6 @@ export const routes: Routes = [
   {
     // Fallback route for 404s
     path: '**',
-    redirectTo: 'orders/new'
+    redirectTo: 'orders'
   }
 ];

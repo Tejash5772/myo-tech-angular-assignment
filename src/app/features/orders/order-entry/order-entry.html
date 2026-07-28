@@ -1,6 +1,11 @@
+<!-- Make sure RouterLink is imported in your component.ts -->
+<a routerLink="/orders" class="btn-back">← Back to Orders</a>
 <div class="order-entry-container">
-  <h3>Create Order</h3>
-  
+  <!-- New Header Container with Back Button -->
+  <div class="order-entry-header">
+    <h3>Create Order</h3>
+  </div>
+
   <form [formGroup]="orderForm" (ngSubmit)="onSubmit()">
     <div class="form-group">
       <label for="customerName">Customer Name</label>
@@ -9,12 +14,12 @@
 
     <div formArrayName="items" class="items-container">
       <h4>Order Items</h4>
-      
+
       <div *ngFor="let item of items.controls; let i=index" [formGroupName]="i" class="item-row">
         <div class="form-group">
           <label>Product ID</label>
-          <!-- Blur triggers the async stock validator[cite: 1] -->
-          <input type="text" formControlName="productId" class="form-control" (blur)="item.get('productId')?.updateValueAndValidity()" />
+          <input type="text" formControlName="productId" class="form-control"
+            (blur)="item.get('productId')?.updateValueAndValidity()" />
           <small class="error-text" *ngIf="item.get('productId')?.hasError('outOfStock')">
             Item is currently out of stock!
           </small>

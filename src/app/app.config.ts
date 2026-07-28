@@ -9,7 +9,7 @@ import { errorInterceptor } from './core/interceptors/error-interceptor';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
-    provideRouter(routes, withHashLocation()),
+    provideRouter(routes),
     // Forbidding direct HttpClient injection in components means we configure it globally here
     provideHttpClient(withInterceptors([cacheInterceptor, errorInterceptor]))
   ]

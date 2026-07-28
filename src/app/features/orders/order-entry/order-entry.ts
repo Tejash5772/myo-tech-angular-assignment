@@ -4,11 +4,11 @@ import { AbstractControl, FormArray, FormBuilder, FormGroup, ReactiveFormsModule
 import { Observable, timer, switchMap, of, catchError } from 'rxjs';
 import { Order } from '../order';
 import { Toast } from '../../../core/services/toast';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-order-entry',
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink],
   templateUrl: './order-entry.html',
   styleUrl: './order-entry.scss',
   standalone: true
